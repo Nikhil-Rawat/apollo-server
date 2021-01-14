@@ -5,7 +5,7 @@ import { resolvers, typeDefs } from '.';
 const server = new Server(config);
 
 const initServer = async () => {
-  server.bootstrap()
+  server
     .setupApollo({ resolvers, typeDefs });
 };
 

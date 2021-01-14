@@ -51,40 +51,13 @@ var Server = /*#__PURE__*/function () {
   }
 
   _createClass(Server, [{
-    key: "bootstrap",
-
-    /**
-     * To enable all the setting on our express app
-     * @returns -Instance of Current Object
-     */
-    value: function bootstrap() {
-      this._initHelmet();
-
-      this._initCompress();
-
-      this._initCookieParser();
-
-      this._initCors();
-
-      this._initJsonParser();
-
-      this._initMethodOverride();
-
-      return this;
-    }
-    /**
-     *
-     * @returns -Instance of Current Object
-     */
-
-  }, {
     key: "run",
     value: function run() {
       var _this$config = this.config,
           port = _this$config.port,
           env = _this$config.env;
       this.httpServer.listen(port, function () {
-        console.info("server started on port ".concat(port, " (").concat(env, ")")); // eslint-disable-line no-console
+        console.info("server started on port ".concat(port)); // eslint-disable-line no-console
       });
       return this;
     }
@@ -111,15 +84,13 @@ var Server = /*#__PURE__*/function () {
                       resolve('I am OK');
                     });
                   }
-                }));
-                this.server.applyMiddleware({
-                  app: app
-                });
-                this.httpServer = (0, _http.createServer)(app);
-                this.server.installSubscriptionHandlers(this.httpServer);
+                })); // this.server.applyMiddleware({ app });
+                // this.httpServer = createServer(app);
+                // this.server.installSubscriptionHandlers(this.httpServer);
+
                 this.run();
 
-              case 6:
+              case 3:
               case "end":
                 return _context.stop();
             }

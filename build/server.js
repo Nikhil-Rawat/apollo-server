@@ -25,7 +25,7 @@ var initServer = /*#__PURE__*/function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            server.bootstrap().setupApollo({
+            server.setupApollo({
               resolvers: _.resolvers,
               typeDefs: _.typeDefs
             });
