@@ -1,15 +1,15 @@
-/* eslint-disable import/extensions */
-import pkg from 'apollo-server-express';
-import { default as schema } from './module/index.js';
+import config from './config/configuration';
+import Server from './lib/NodeServer.js';
+import { resolvers, typeDefs } from '.';
 
-const { ApolloServer } = pkg;
-const Server = (config) => {
-  const { port } = config;
-  console.log('check');
-  const server = new ApolloServer({ schema });
-  server.listen(port, () => {
-    console.info(`Server is running on port ${port}`);
-  });
+const server = new Server(config);
+
+const initServer = async () => {
+  server.bootstrap()
+    .setupApollo({ resolvers, typeDefs });
 };
 
-export default Server;
+initServer();
+
+
+export default server;

@@ -1,7 +1,12 @@
-/* eslint-disable import/extensions */
-import Server from './server.js';
-import config from './config/configuration.js';
+import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
+import path from 'path';
+import resolvers from './module';
 
-const server = Server(config);
+const typesArray = fileLoader(path.join(__dirname, './**/*.graphql'));
 
-server();
+const typeDefs = mergeTypes(typesArray, { all: true });
+
+export {
+  resolvers,
+  typeDefs,
+};
