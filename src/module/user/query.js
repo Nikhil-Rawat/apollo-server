@@ -1,7 +1,7 @@
 export default {
-  getMyProlfile: () => ({
+  getMyProfile: () => ({
     id: 1,
-    name: 'Nikhil',
+    name: 'Nikhil Rawat',
     email: 'nikhil.rawat@successive.tech',
   }),
 };

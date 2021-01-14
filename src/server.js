@@ -1,15 +1,45 @@
-import config from './config/configuration';
-import Server from './lib/NodeServer.js';
-import { resolvers, typeDefs } from '.';
+import { createServer } from 'http';
 
-const server = new Server(config);
+import Express from 'express';
+import pkg from 'apollo-server-express';
+const { ApolloServer } = pkg;
+export default class Server {
+  constructor(config) {
+    this.config = config;
+    this.app = new Express();
+    this.run = this.run.bind(this);
+  }
 
-const initServer = async () => {
-  server
-    .setupApollo({ resolvers, typeDefs });
-};
+  get application() {
+    return this.app;
+  }
 
-initServer();
+  run() {
+    const { port, env } = this.config;
+    this.httpServer.listen(port, () => {
+      console.info(`server started on port ${port}`); // eslint-disable-line no-console
+    });
 
+    return this;
+  }
 
-export default server;
+  async setupApollo(schema) {
+    const { app } = this;
+
+    this.server = new ApolloServer({
+      ...schema,
+      context: ({ req }) => ({
+        request: req,
+        token: req.headers.authorization || '',
+      }),
+      onHealthCheck: () => new Promise((resolve) => {
+        resolve('I am OK');
+      }),
+    });
+
+    this.server.applyMiddleware({ app });
+    this.httpServer = createServer(app);
+    this.server.installSubscriptionHandlers(this.httpServer);
+    this.run();
+  }
+}

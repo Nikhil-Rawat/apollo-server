@@ -1,12 +1,15 @@
-import { fileLoader, mergeTypes } from 'merge-graphql-schemas';
-import path from 'path';
-import resolvers from './module';
+import config from './config/configuration.js';
+import Server from './server.js';
+import { resolvers, typeDefs } from './module/module.js';
 
-const typesArray = fileLoader(path.join(__dirname, './**/*.graphql'));
 
-const typeDefs = mergeTypes(typesArray, { all: true });
+const server = new Server(config);
 
-export {
-  resolvers,
-  typeDefs,
+const initServer = async () => {
+  server.setupApollo({ resolvers, typeDefs });
 };
+
+initServer();
+
+
+export default server;
