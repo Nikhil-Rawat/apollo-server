@@ -3,7 +3,3 @@ input CreateUserInput {
   email: String!
   role: String!
 }
-
-type ReturnId {
-  Id: Int!
-}

@@ -26,12 +26,18 @@ export default class Server {
   async setupApollo(schema) {
     const { app } = this;
 
+    // this.server = new ApolloServer({
+    //   ...schema,
+    //   context: ({ req }) => ({
+    //     request: req,
+    //     token: req.headers.authorization || '',
+    //   }),
+    //   onHealthCheck: () => new Promise((resolve) => {
+    //     resolve('I am OK');
+    //   }),
+    // });
     this.server = new ApolloServer({
       ...schema,
-      context: ({ req }) => ({
-        request: req,
-        token: req.headers.authorization || '',
-      }),
       onHealthCheck: () => new Promise((resolve) => {
         resolve('I am OK');
       }),
