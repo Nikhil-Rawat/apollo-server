@@ -1,5 +1,5 @@
-import { userQuery } from './user/index.js';
-import { mutation, traineeQuery, subscription } from './trainee/index.js'
+import { userMutation, userQuery } from './user/index.js';
+import { traineeMutation, traineeQuery, traineeSubscription } from './trainee/index.js'
 
 export default {
   Query: {
@@ -7,10 +7,11 @@ export default {
     ...traineeQuery,
   },
   Mutation: {
-    ...mutation
+    ...traineeMutation,
+    ...userMutation
   },
   Subscription: {
-    ...subscription
+    ...traineeSubscription
   }
 };
 

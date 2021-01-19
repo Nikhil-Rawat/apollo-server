@@ -1,7 +1,8 @@
 import { createServer } from 'http';
-
 import Express from 'express';
 import pkg from 'apollo-server-express';
+import { UserAPI } from './datasource/index.js';
+
 const { ApolloServer } = pkg;
 export default class Server {
   constructor(config) {
@@ -38,6 +39,11 @@ export default class Server {
     // });
     this.server = new ApolloServer({
       ...schema,
+      dataSources: () => {
+        return {
+          userAPI : new UserAPI(),
+        };
+      },
       onHealthCheck: () => new Promise((resolve) => {
         resolve('I am OK');
       }),
