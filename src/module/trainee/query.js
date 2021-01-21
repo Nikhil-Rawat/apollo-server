@@ -5,7 +5,10 @@ export default {
     const { id } = args;
     return user.getUser(id);
   },
-  getAllTrainee: () => {
-    return user.getAllUsers();
+  getAllTrainee: async (parent, args, context) => {
+    const { dataSources: { traineeAPI } } = context;
+    const getalltrainee = await traineeAPI.getAllTrainee();
+    console.log(getalltrainee);
+    return getalltrainee.data[0].records;
   }
 }

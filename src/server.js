@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import Express from 'express';
 import pkg from 'apollo-server-express';
-import { UserAPI } from './datasource/index.js';
+import { TraineeAPI, UserAPI } from './datasource/index.js';
 
 const { ApolloServer } = pkg;
 export default class Server {
@@ -42,6 +42,7 @@ export default class Server {
       dataSources: () => {
         return {
           userAPI : new UserAPI(),
+          traineeAPI: new TraineeAPI(),
         };
       },
       context: ({ req }) => {

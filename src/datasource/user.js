@@ -5,7 +5,7 @@ const { RESTDataSource } = pkg;
 export class UserAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = `${config.baseUrl}/api/user`;
+    this.baseURL = `${config.baseUrl}/api/user/`;
   }
 
   willSendRequest(request) {
@@ -13,11 +13,12 @@ export class UserAPI extends RESTDataSource {
   }
 
   getMe() {
-    return this.get('/me');
+    return this.get('me');
   }
 
   loginUser(payload) {
-    return this.post('/login', payload);
+    return this.post('login', payload);
   }
+
 }
 
