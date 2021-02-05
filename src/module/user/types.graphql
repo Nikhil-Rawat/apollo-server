@@ -3,10 +3,17 @@ type User {
   name: String!
   email: String!
   role: String!
-  originalId: String!
+  originalId: ID!
+  createdAt: String!
 }
 
 input Payload {
   email: String!
   password: String!
+}
+
+type LoginResponse {
+  status: Int!
+  message: String!
+  data: String
 }

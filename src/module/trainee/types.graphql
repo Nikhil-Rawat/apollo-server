@@ -1,11 +1,44 @@
-input CreateUserInput {
+input CreateTraineeInput {
   name: String!
   email: String!
   password: String!
+  role: String!
 }
 
-input UpdateUserInput {
+input UpdateTraineeInput {
   originalId: ID!
   name: String
   email: String
+}
+
+input getAllInput {
+  skip: Int
+  limit: Int
+}
+
+type CreateTraineeOutput {
+  status: Int!
+  message: String!
+  data: User
+}
+
+type getAllTrainee {
+  message: String
+  data: getAll
+  status: Int!
+}
+
+type getAll {
+  Total_Count: Int
+  records: [User]
+}
+
+type UpdateTraineeOutput {
+  status: Int!
+  message: String!
+}
+
+type DeleteTraineeOutput {
+  status: Int!
+  message: String!
 }

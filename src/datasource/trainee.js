@@ -24,8 +24,8 @@ export class TraineeAPI extends RESTDataSource {
     return this.put('update', new Object({ ...UpdateData }));
   }
 
-  getAllTrainee() {
-    return this.get('/getall')
+  getAllTrainee(payload) {
+    return this.get('getall', payload);
   }
 
 }

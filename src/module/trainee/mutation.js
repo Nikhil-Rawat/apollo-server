@@ -10,11 +10,18 @@ export default {
   //   return addedUser;
   // },
   createTrainee: async (parent, args, context) => {
-    const { user } = args;
-    const { dataSources: { traineeAPI } } = context;
-    const addedUser = await traineeAPI.createTrainee(user);
-    pubsub.publish(constant.subscriptions.Trainee_Added, { traineeAdded: addedUser });
-    return addedUser.data;
+    try {
+      const { user } = args;
+      const { dataSources: { traineeAPI } } = context;
+      const addedUser = await traineeAPI.createTrainee(user);
+      pubsub.publish(constant.subscriptions.Trainee_Added, { traineeAdded: addedUser });
+      return addedUser;
+    } catch(error) {
+        return {
+          message: constant.SERVER_CLOSED,
+          status: 503
+        }
+      }
   },
   // deleteTrainee: (parent, args, context) => {
   //   const { id } = args;
@@ -23,11 +30,19 @@ export default {
   //   return deletedUser;
   // },
   deleteTrainee: async (parent, args, context) => {
-    const { id } = args;
-    const { dataSources: { userAPI } } = context;
-    const deletedUser = await userAPI.deleteTrainee(id);
-    pubsub.publish(constant.subscriptions.Trainee_Deleted, { traineeDeleted: deletedUser });
-    return deletedUser.message;
+    try {
+      const { id } = args;
+      const { dataSources: { traineeAPI } } = context;
+      const deletedUser = await traineeAPI.deleteTrainee(id);
+      pubsub.publish(constant.subscriptions.Trainee_Deleted, { traineeDeleted: deletedUser });
+      console.log(deletedUser);
+      return deletedUser;
+    } catch(error) {
+      return {
+        status: 503,
+        message: constant.SERVER_CLOSED,
+      }
+    }
   },
   // updateTrainee: (parent, args, context) => {
   //   const { id, role } = args;
@@ -36,10 +51,18 @@ export default {
   //   return updatedUser;
   // }
   updateTrainee: async (parent, args, context) => {
-    const { updateData } = args;
-    const { dataSources: { userAPI } } = context;
-    const updatedUser = await userAPI.updateTrainee(updateData);
-    pubsub.publish(constant.subscriptions.Trainee_Added, { traineeUpdated: updatedUser });
-    return updatedUser.message;
+    try {
+      console.log('inside update');
+      const { updatedPayload } = args;
+      const { dataSources: { traineeAPI } } = context;
+      const updatedUser = await traineeAPI.updateTrainee(updatedPayload);
+      pubsub.publish(constant.subscriptions.Trainee_Added, { traineeUpdated: updatedUser });
+      return updatedUser;
+    } catch(error) {
+      return {
+        status: 503,
+        message: constant.SERVER_CLOSED
+      }
+    }
   }
 }
