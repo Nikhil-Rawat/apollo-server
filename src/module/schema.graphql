@@ -12,7 +12,7 @@ type Mutation {
 }
 
 type Subscription {
-  traineeAdded: User!
-  traineeUpdated: User!
-  traineeDeleted: ID!
+  traineeAdded: CreateTraineeOutput!
+  traineeUpdated: UpdateTraineeOutput!
+  traineeDeleted: DeleteTraineeOutput!
 }

@@ -36,6 +36,7 @@ type getAll {
 type UpdateTraineeOutput {
   status: Int!
   message: String!
+  data: User
 }
 
 type DeleteTraineeOutput {
